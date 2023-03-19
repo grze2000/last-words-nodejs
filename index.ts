@@ -8,6 +8,7 @@ import { swaggerDocs } from "./src/config/swagger";
 import { configurePassport } from "./src/config/passport";
 import { authController } from "./src/controllers/auth.controller";
 import { messageController } from "./src/controllers/message.controller";
+import { profileController } from "./src/controllers/profile.controller";
 
 configurePassport();
 
@@ -34,6 +35,7 @@ app.use(
 
 const v1Router = express.Router();
 v1Router.use("/auth", authController);
+v1Router.use("/profile", profileController);
 v1Router.use("/messages", messageController);
 v1Router.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 

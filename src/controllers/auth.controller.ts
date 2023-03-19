@@ -6,7 +6,6 @@ import { registerDto } from "../dto/register.dto";
 import { tokenDto } from "../dto/token.dto";
 import { handleValidationErrors } from "../middlewares/express/handleValidationErrors";
 import {
-  getUser,
   login,
   refreshToken,
   register,
@@ -83,8 +82,6 @@ authController.post(
  *             confirmPassword:
  *               type: string
  *               format: password
- *             pin:
- *               type: string
  *    responses:
  *      201:
  *        description: Account has been created
@@ -179,10 +176,5 @@ authController.post(
  *                email:
  *                  type: string
  */
-authController.get(
-  "/me",
-  passport.authenticate("jwt", { session: false }),
-  getUser
-);
 
 export { authController };

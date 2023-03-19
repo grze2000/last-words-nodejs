@@ -214,8 +214,3 @@ export const revokeToken = (req: Request, res: Response) => {
     }
   );
 };
-
-export const getUser = (req: Request, res: Response) => {
-  const { _id, fullName, email } = req.user as IUser;
-  res.json({ _id, fullName, email });
-};
