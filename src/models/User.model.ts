@@ -26,7 +26,6 @@ export const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   },
   password: {
     type: String,
-    required: true,
   },
   email: {
     type: String,

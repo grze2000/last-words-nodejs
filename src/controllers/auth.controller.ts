@@ -1,16 +1,11 @@
 import { Router } from "express";
 import { checkSchema } from "express-validator";
-import passport from "passport";
+import { externalLoginDto } from "../dto/externalLogin.dto";
 import { loginDto } from "../dto/login.dto";
 import { registerDto } from "../dto/register.dto";
 import { tokenDto } from "../dto/token.dto";
 import { handleValidationErrors } from "../middlewares/express/handleValidationErrors";
-import {
-  login,
-  refreshToken,
-  register,
-  revokeToken,
-} from "../services/auth.service";
+import authService from "../services/auth.service";
 
 const authController = Router();
 
@@ -44,8 +39,6 @@ const authController = Router();
  *                  type: string
  *                refreshToken:
  *                  type: string
- *                userId:
- *                  type: string
  *                email:
  *                  type: string
  *
@@ -54,7 +47,48 @@ authController.post(
   "/login",
   checkSchema(loginDto),
   handleValidationErrors,
-  login
+  authService.login
+);
+
+/**
+ * @swagger
+ * /v1/auth/external-login:
+ *  post:
+ *    tags: [Auth]
+ *    summary: Log or register a user with an external provider
+ *    security: []
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              token:
+ *                type: string
+ *              provider:
+ *                type: string
+ *                enum: [google]
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                accessToken:
+ *                  type: string
+ *                refreshToken:
+ *                  type: string
+ *                email:
+ *                  type: string
+ *
+ */
+authController.post(
+  "/external-login",
+  checkSchema(externalLoginDto),
+  handleValidationErrors,
+  authService.loginWithProvider
 );
 
 /**
@@ -90,7 +124,7 @@ authController.post(
   "/register",
   checkSchema(registerDto),
   handleValidationErrors,
-  register
+  authService.register
 );
 
 /**
@@ -124,7 +158,7 @@ authController.post(
   "/refresh-token",
   checkSchema(tokenDto),
   handleValidationErrors,
-  refreshToken
+  authService.refreshToken
 );
 
 /**
@@ -152,7 +186,7 @@ authController.post(
   "/revoke-token",
   checkSchema(tokenDto),
   handleValidationErrors,
-  revokeToken
+  authService.revokeToken
 );
 
 /**

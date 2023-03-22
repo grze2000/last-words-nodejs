@@ -18,7 +18,7 @@ const createMessage = (req: Request, res: Response) => {
     });
 };
 
-export const getMessages = async (req: Request, res: Response) => {
+const getMessages = async (req: Request, res: Response) => {
   const user = req.user as IUser;
 
   const filters = {
@@ -52,7 +52,7 @@ export const getMessages = async (req: Request, res: Response) => {
     });
 };
 
-export const getMessage = (req: Request, res: Response) => {
+const getMessage = (req: Request, res: Response) => {
   const user = req.user as IUser;
   Message.findOne(
     {
@@ -76,7 +76,7 @@ export const getMessage = (req: Request, res: Response) => {
     });
 };
 
-export const updateMessage = (req: Request, res: Response) => {
+const updateMessage = (req: Request, res: Response) => {
   const user = req.user as IUser;
   Message.findOneAndUpdate(
     {
@@ -105,7 +105,7 @@ export const updateMessage = (req: Request, res: Response) => {
     });
 };
 
-export const deleteMessage = (req: Request, res: Response) => {
+const deleteMessage = (req: Request, res: Response) => {
   const user = req.user as IUser;
   Message.findOneAndUpdate(
     {

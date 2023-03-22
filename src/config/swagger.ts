@@ -5,7 +5,7 @@ export const swaggerOptions = {
     openapi: "3.0.1",
     info: {
       title: "Last words API",
-      version: "1.1.0",
+      version: "1.2.0",
     },
     basePath: "/",
     components: {
